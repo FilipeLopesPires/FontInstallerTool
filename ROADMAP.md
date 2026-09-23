@@ -8,7 +8,7 @@ way to install the tool, or a smarter menu entry.
 | Tier | Edition | For | Status |
 |------|---------|-----|--------|
 | 1 | Script edition | Developers who are comfortable with PowerShell | Available |
-| 2 | Installer edition | Anyone who wants a normal setup wizard and an uninstall entry | Planned |
+| 2 | Installer edition | Anyone who wants a normal setup wizard and an uninstall entry | Available |
 | 3 | Smart menu | Users who want the entry shown only where it makes sense | Idea |
 | 4 | Store edition | Everyone, including non-technical users | Idea |
 
@@ -28,7 +28,7 @@ your user profile and register a context menu entry.
   skipped or failed.
 - No code signing is needed and nothing needs compiling.
 
-## Tier 2: Installer edition (planned)
+## Tier 2: Installer edition (available)
 
 The same tool, delivered as a standard Windows setup program built with Inno Setup.
 
@@ -39,8 +39,7 @@ The same tool, delivered as a standard Windows setup program built with Inno Set
 - The installer is not code-signed. The first time you run it, Windows SmartScreen may show
   "Windows protected your PC". Choose **More info › Run anyway**. That is a warning, not a
   block.
-- Later it could also be published through `winget` and Scoop, which accept unsigned
-  installers.
+- Next: publish it through `winget` and Scoop, which accept unsigned installers.
 
 ## Tier 3: Smart menu (idea)
 

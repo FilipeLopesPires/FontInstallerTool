@@ -15,9 +15,24 @@ $ErrorActionPreference = 'Stop'
 $toolDir    = Join-Path $env:LOCALAPPDATA 'FontInstallerTool'
 $worker     = Join-Path $toolDir 'Install-Fonts.ps1'
 $menuSubKey = 'Software\Classes\Directory\Background\shell\FontInstallerTool'
+# Must match AppId in installer\FontInstallerTool.iss
+$installerEditionKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{982F438F-8A78-4107-992B-7029A29DAEF7}_is1'
+
+if (Test-Path -LiteralPath $installerEditionKey) {
+    throw 'The Installer edition of FontInstallerTool is already installed. Keep using it, or uninstall it from Settings > Apps before installing the Script edition.'
+}
+
+# Release zip: the worker sits next to this script. Repository clone: it is in ..\src
+$source = @(
+    (Join-Path $PSScriptRoot 'Install-Fonts.ps1'),
+    (Join-Path $PSScriptRoot '..\src\Install-Fonts.ps1')
+) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+if (-not $source) { throw 'Install-Fonts.ps1 was not found next to install.ps1 or in ..\src.' }
 
 New-Item -ItemType Directory -Path $toolDir -Force | Out-Null
-Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'src\Install-Fonts.ps1') -Destination $worker -Force
+Copy-Item -LiteralPath $source -Destination $worker -Force
+# Files extracted from a downloaded zip carry the "downloaded from the internet" mark
+Unblock-File -LiteralPath $worker
 
 # conhost --headless runs PowerShell without the console window flashing on screen
 $command = "conhost.exe --headless powershell.exe -NoProfile -ExecutionPolicy Bypass " +

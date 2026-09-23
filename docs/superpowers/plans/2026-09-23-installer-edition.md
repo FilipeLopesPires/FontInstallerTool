@@ -657,6 +657,10 @@ Invoke-Pester -Path tests -ExcludeTagFilter Integration   # safe: no system chan
 
 The integration tests (`-Tag Integration`) install and uninstall the real tool. CI runs
 them on every push. Tagging `vX.Y.Z` publishes a release with both downloads.
+
+## License
+
+[MIT](LICENSE.md) © 2026 Filipe Lopes Pires
 ````
 
 - [ ] **Step 3: Write `script/README.md`**
@@ -749,8 +753,10 @@ Proposed message: `docs: add edition picker landing page and per-edition guides`
 ### Task 6: First release (repo owner)
 
 - [ ] **Step 1:** Make sure `main` is pushed and the latest Build run is green.
-- [ ] **Step 2:** Tag and push: `git tag v1.0.0; git push origin v1.0.0` (only with the owner's explicit go-ahead).
-- [ ] **Step 3:** Open the Releases page. Expected: `v1.0.0` with both assets attached.
+- [ ] **Step 2:** Confirm the `VERSION` file says `0.0.1`. Then tag and push: `git tag v0.0.1; git push origin v0.0.1` (only with the owner's explicit go-ahead).
+- [ ] **Step 3:** Open the Releases page. Expected: `v0.0.1` with both assets attached.
+
+> **Change after this plan was written:** the version now lives in a `VERSION` file at the repo root. `build.ps1 -Version` defaults to it, and CI fails a tag that doesn't match it. The code blocks in Tasks 2–4 show the original `0.0.0` defaults; the implemented files are the source of truth.
 - [ ] **Step 4:** In a private browser window, click both README download links. Both files download.
 - [ ] **Step 5:** On a clean user account (or after uninstalling), install from the downloaded `Setup.exe`. Confirm the SmartScreen flow matches what the README describes.
 
@@ -758,5 +764,4 @@ Proposed message: `docs: add edition picker landing page and per-edition guides`
 
 ## Out of scope / open decisions
 
-- **License:** the repo has no `LICENSE` file. Visitors can't legally reuse the code without one. The owner should pick one, for example MIT, before the first release.
 - winget/Scoop manifests, Tier 3 (smart menu DLL) and Tier 4 (Store) are covered by [ROADMAP.md](../../../ROADMAP.md) and get their own plans.
